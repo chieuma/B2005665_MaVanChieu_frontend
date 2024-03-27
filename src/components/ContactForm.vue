@@ -60,7 +60,8 @@
         </div>
 
         <div class="form-group">
-            <button class="btn btn-primary">Lưu</button>
+            <button class="btn btn-primary" v-if="!contactLocal._id" @click="addContact">Thêm</button>
+            <button class="btn btn-primary" v-if="contactLocal._id">Lưu</button>
             <button
                 v-if="contactLocal._id"
                 type="button"
@@ -81,7 +82,7 @@ export default {
         Field,
         ErrorMessage,
     },
-    emits: ["submit:contact", "delete:contact"],
+    emits: ["submit:contact", "delete:contact","addContact:contact"],
     props: {
     contact: { type: Object, required: true }
     },
@@ -116,10 +117,13 @@ export default {
         deleteContact() {
             this.$emit("delete:contact", this.contactLocal.id);
         },
+        addContact() {
+            this.$emit("addContact:contact", this.contactLocal);
+        },
     },
 };
 </script>
 
 <style scoped>
-@import "@/assets/form.css";
+    @import "@/assets/form.css";
 </style>
